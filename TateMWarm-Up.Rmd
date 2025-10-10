@@ -1,6 +1,6 @@
 ---
 title: "Warm-up Mini-report: Mosquito Blood Hosts in \n Salt Lake City, Utah"
-author: "FILL IN YOUR NAME"
+author: "Tate McDonald"
 date: "`r Sys.Date()`"
 output:
   github_document:
@@ -12,15 +12,15 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 # ABSTRACT
 
-Fill in abstract at the end after we have finished the methods, results, discussion, conclusions and know what our data "says".
+This report investigates the transmission cycle of the West Nile virus, specifically between birds (like the House finch), mosquitoes, and humans. The main goal of the study is to determine if House finches act as the most important amplifying host of the West Nile virus in the Salt Lake City, Utah area. Two different mosquito pools were collected using carbon dioxide and gravid traps: those containing West Nile virus-negative host DNA, and those containing West Nile virus-positive DNA. Using PCR and MinION nanopore sequencing, each host from the blood-fed mosquitoes was identified and placed on barplots which were separated on the basis of being West Nile virus-negative or West Nile virus-positive. After using two generalized linear models and obtaining extremely small P-values, it was determined that the data provides strong evidence to support the main hypothesis of the study. These findings have implications for current mosquito abatement procedures in Salt Lake City.
 
 # BACKGROUND
 
-Fill in some text here that provides background info on the WNV system, the blood meal DNA extractions, PCR, sequencing, etc. and the foundation for our question/hypothesis.
+The West Nile virus is a dangerous mosquito-borne disease commonly found and spread in several major areas of the globe, including the United States. While many people infected by the virus can develop mild symptoms, such as fever and body aches, others can suffer from severe illness, leading to hospitalization or death. For decades, researchers have studied how the West Nile virus is transmitted through different human and animal communities. Years of experimental data has revealed that the virus is usually spread first between mosquitoes and birds, then to humans. Birds act as amplifying hosts for the virus, meaning that, by carrying high amounts of the virus in their blood, mosquitoes act as transmission vectors by feeding on the blood of infected birds and subsequently transferring the virus by biting humans.
 
-For example, we can use the viremia duration (Kumar et al., 2003) bar plot (make sure to reference sources!!!)  to illustrate the potential importance of house finches in WNV transmission and as the logical foundation for our hypothesis that house finches serve as amplifying hosts for WNV... and the prediction that locations with more house finches in our blood host analysis are also the same locations with higher positive tests for WNV in mosquito pools... 
+Because bird populations are so abundant throughout the globe (more specifically within the United States), it is important to know which species of birds act as the most efficient reservoirs for the West Nile virus. Modern DNA sequencing technology allows researchers to precisely determine mosquito host selection, as well as the duration that detectable levels of the West Nile virus circulate in the blood of certain bird species. For example, a study performed by Nicholas Komar and associates (2003) determined the mean viremia durations for 25 species of birds, and they found House finches and Great Horned owls to have particularly long viremia durations with averages of up to 6 days (shown below).^[Komar N, Langevin S, Hinten S, Nemeth N, Edwards E, Hettler D, Davis B, Bowen R, Bunning M. Experimental infection of North American birds with the New York 1999 strain of West Nile virus. Emerg Infect Dis. 2003 Mar;9(3):311-22. https://doi.org/10.3201/eid0903.020628.]
 
-NOTE: Examples of data you can plot for the background info at https://github.com/saarman/BIOL3070/
+House finch populations are abundant throughout the United States, including the greater Salt Lake area in Utah. Because House finches have been determined to sustain peak viremia levels for relatively long durations, it is possible for House finches to serve as excellent amplifying hosts for the West Nile virus. Recent developments in genetic sequencing technology, such as PCR (polymerase chain reaction), let scientists obtain data from mosquito blood meals and determine which bird species serve as the most effective amplifying hosts in local communities. An ever-expanding list of DNA databases can aid researchers in getting a deeper understanding of the transmission cycle of the West Nile virus in North America and other densely-populated regions of the world. 
 
 ```{r viremia, include=TRUE, eval=TRUE, warning=FALSE, fig.align='left', fig.width=4.75, fig.height=7}
 # Manually transcribe duration (mean, lo, hi) from the last table column
@@ -60,22 +60,30 @@ arrows(duration$lo, bp, duration$hi, bp,
 
 # STUDY QUESTION & HYPOTHESIS
 
+From previous studies analyzing peak viremia levels in birds, it was determined that House finches may be important amplifying hosts for the West Nile virus. However, there is insufficient data to add strength to this claim, especially for bird populations in the Salt Lake City area. Therefore, the following questions and predictions are presented.
+ 
 ## Question  
-Fill in here, the question we want to answer... e.g. What bird species is acting as WNV amplifying host in Salt Lake City?
 
-## Hypothesis 
-Fill in hypothesis... e.g. House finches are acting as important amplifying hosts of WNV in Salt Lake City.
-  
+In the Salt Lake City area, do House finches act as an important amplifying host for the West Nile virus? Is there a different bird species that is more effective at transmitting the virus?
+
+## Hypothesis
+
+Based partly on evidence from previous studies, House finches are acting as the most prevalent amplifying hosts of West Nile virus in the Salt Lake City area.
+
 ## Predictions
-Fill in prediction... e.g. If house finches are acting as important amplifying hosts, we predict that trapping locations where mosquitoes feed on house finches will also have higher rates of confirmed WNV in tested mosquito pools.
+
+If house finches indeed act as important amplifying hosts, it is predicted that trap locations where mosquitoes feed on House finch blood will also have higher rates of confirmed West Nile virus in obtained mosquito pools. It is also predicted that House finches will be the most common host identified from blood collected from studied mosquito pools.
 
 # METHODS
 
-Fill in here, including overview of procedure and methods used for this project.
+## Procedure
 
-## First Analysis: Barplots of blood meal ID by trap locations with/without WNV positive mosquito pools
+An array of mosquitoes was obtained using two different methods of trapping, each with the same overall purpose. Carbon dioxide traps and gravid traps were used to lure and capture blood-fed mosquitoes. The mosquitoes caught in the traps were identified as being either West Nile virus-positive or West Nile virus-negative. Each blood-fed mosquito was placed in a solution in preparation for PCR and DNA extraction. The PCR process was meant to amplify the DNA being sequenced in order to determine the specific host of each blood-fed mosquito. Two controls were used in the PCR examination: a negative control with a previously-identified DNA sequence to ensure no samples were contaminated, and a positive control to verify all components of the reaction were present. A thermocycling machine was used in order to regulate the temperature of each sample throughout the duration of the PCR process. After many cycles of denaturation, annealing, and extension, the DNA samples were sequenced using a MinION nanopore sequencer, and the host of each blood-fed mosquito was identified. Using the BLASTn sequencing database, the host of each blood-fed mosquito was verified with the strongest match. The results, along with their corresponding analyses, are described in detail in the following sections.
 
-Horizontal plots:
+## First Analysis: Barplots of blood meal ID by trap locations with and without West Nile virus-positive mosquito pools
+
+The first analysis contains two barplots: the left barplot shows the number of blood meal hosts that were determined to be West Nile virus-negative (organized by species). The right barplot shows the number of blood meal hosts that were determined to be West Nile virus-positive, also organized by species. House finch DNA was most commonly present in mosquitoes that were West Nile virus-negative and West Nile virus-positive.
+
 ```{r horiz-plot,fig.align='left',fig.width=10,fig.height=7, warning=FALSE}
 ## import counts_matrix: data.frame with column 'loc_positives' (0/1) and host columns 'host_*'
 counts_matrix <- read.csv("./bloodmeal_plusWNV_for_BIOL3070.csv")
@@ -168,24 +176,48 @@ par(op)
 host_species_colors <- species_colors
 ```
 
-## Fill in second analysis/plot
+## Second Analysis: House finch generalized linear model^[ChatGPT. OpenAI, version Jan 2025. Used as a reference for functions such as plot() and to correct syntax errors. Accessed `r Sys.Date()`.]
+
+The second analysis contains two generalized linear models, each with the purpose of determining if the high relative rate of appearance of House finch DNA in blood-fed mosquitoes was statistically significant. In both models, the P-value indicates or suggests there is statistical significance.
 ```{r second-analysis-or-plot, include=TRUE, eval=TRUE, warning=FALSE, fig.align='left', fig.width=4.75, fig.height=7}
-# put code for plotting here
+glm1 <- glm(loc_positives ~ host_House_finch,
+            data = counts_matrix,
+            family = binomial)
+summary(glm1)
+glm2 <- glm(loc_rate ~ host_House_finch,
+            data = counts_matrix)
+summary(glm2)
 ```
 
 # DISCUSSION
 
-## Interpretation - fill in analysis
+## First Analysis: Interpretation
 
-## Interpretation - fill in analysis/plot
+The first of the two barplots contains data on blood meal hosts that were determined to be West Nile virus-negative. Although the majority of blood meal hosts were birds, four different mammal species were identified. The left barplot shows clearly, however, that the most commonly-identified blood meal host in West Nile virus-negative mosquitoes was the House finch, with about 30 of the collected blood meal hosts being identified as such. The same can be said for the second barplot, which contains data on blood meal hosts determined to be West Nile virus-positive. In the second barplot, nearly 70 of the collected blood meal samples were determined to contain House finch DNA. In both barplots, the House sparrow and the American robin were the second and third most commonly-identified blood meal host species, respectively.
+
+From these findings there is evidence to support the hypothesis that House finches are acting as the most prevalent amplifying hosts of the West Nile virus in the Salt Lake City area.
+
+## Second Analysis: Interpretation
+
+The two generalized linear models used in this study determined the statistical significance of the obtained data. The first model was utilized to determine whether or not the number of West Nile virus-positive blood meal samples containing House finch DNA was statistically significant when compared to the rest of the obtained samples. This first model returned a P-value of 0.0287 and a significance code of '*', which indicates a fair amount of statistical significance. This means the null hypothesis can be rejected, and there is an extremely low chance the results were obtained due to random chance.
+
+The second generalized linear model was used to determine if the rate of appearance of West Nile virus-positive House finch DNA was statistically significant. While the rate of the linear regression was small (just 0.027), indicating a low, positive rate of appearance, the model returned a P-value of 0.0000454. This extremely small P-value returned a significance code of '***', which indicates the strongest statistical significance for this particular model. This means the null hypothesis can be rejected, and there is an extremely low chance the results were obtained due to random chance.
+
+The two P-values obtained from the generalized linear models are strong evidence to support the hypothesis that House finches act as the most prevalent amplifying host of the West Nile virus in the Salt Lake City area.
+
+## Uncertainties & Limitations
+
+Although this study provides strong supporting evidence for the main hypothesis, there were some prevalent limitations. First, this experiment studied a relatively small number of blood meal samples. A much larger mosquito pool would grant more degrees of freedom when conducting statistical significance tests, which would ultimately provide more evidence to support or reject the study's main hypothesis.
+
+Second, it was, and remains to be, logistically impossible to precisely track the origin and travel path of each obtained mosquito. This means that some of the mosquitoes used in this particular study may have originated in areas outside of the place of interest (the Salt Lake City area). The same can be said for the DNA obtained from each blood meal sample.
 
 # CONCLUSION
 
-# REFERENCES     
+Despite the limitations, the analysis of the obtained data provides great supporting evidence for both the main hypothesis and the predictions of this study. The PCR and sequencing processes proved to be highly successful. In addition, the statistical significance (P-values) of the data indicates that House finches may indeed be acting as the most prevalent amplifying hosts of the West Nile virus in the Salt Lake City area. The barplots of the obtained blood meal samples also indicate the rate of appearance of mosquitoes with West Nile virus-positive House finch DNA may be greater than that of mosquitoes with West Nile virus-negative House finch DNA.
 
-1. Komar N, Langevin S, Hinten S, Nemeth N, Edwards E, Hettler D, Davis B, Bowen R, Bunning M. Experimental infection of North American birds with the New York 1999 strain of West Nile virus. Emerg Infect Dis. 2003 Mar;9(3):311-22. https://doi.org/10.3201/eid0903.020628
+These findings could be of great importance for the ongoing mosquito abatement efforts in the Salt Lake City area. It can be confidently stated that animals with relatively long durations of peak viremia levels pose a greater threat of transmission to other animals, like humans. With this data, abatement efforts can be more confidently directed toward areas of high interaction between House finches, other commonly found bird species, and mosquitoes.
 
-2. ChatGPT. OpenAI, version Jan 2025. Used as a reference for functions such as plot() and to correct syntax errors. Accessed `r Sys.Date()`.
+# REFERENCES
 
 
 
