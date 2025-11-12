@@ -1,7 +1,7 @@
 Warm-up Mini-report: Mosquito Blood Hosts in Salt Lake City, Utah
 ================
 Tate McDonald
-2025-10-10
+2025-11-12
 
 - [ABSTRACT](#abstract)
 - [BACKGROUND](#background)
@@ -435,4 +435,4 @@ commonly found bird species, and mosquitoes.
 
 [^2]: ChatGPT. OpenAI, version Jan 2025. Used as a reference for
     functions such as plot() and to correct syntax errors. Accessed
-    2025-10-10.
+    2025-11-12.

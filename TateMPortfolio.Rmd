@@ -12,9 +12,36 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 # ABSTRACT
 
-# BACKGROUND
+# BACKGROUND & QUESTION FRAMING
 
+Throughout recorded history, humans have struggled against nature and its elements. Countless studies over the centuries have determined there are many factors--in addition to nature--that contribute to a person's health and lifespan. As time has progressed, societies around the world have discovered and implemented ways to improve quality of life and increase the average human life expectancy. More humans than ever before survive into adulthood and are able to reproduce, resulting in an explosion in the global population over the last two centuries. However, deaths among infants remain a prevalent and tragic issue, and further refinements in healthcare technology are in development to combat this.
 
+There is no doubt that improvements in sanitation, healthcare technology, and basic hygiene have all played a significant role in lengthening the human lifespan, and these effects can be quantitatively measured to some degree. Meaningful efforts to improve quality of life are reflected in the gradual decline in infant deaths per 100,000 births in the United States (Bastian et al., 2020).^[Bastian, B., Tejada Vera, B., & Arias, E. (2020, August 25). NCHS Data Visualization Gallery - mortality trends in the United States. Centers for Disease Control and Prevention. https://www.cdc.gov/nchs/data-visualization/mortality-trends/index.htm#citation.] One of the most prevalent and hotly-debated developments in the last 50 years has been the advent of routine infant vaccination programs. Many scientific studies have greatly supported the concept that vaccinations contribute to the overall increase in human life expectancy through disease prevention, but have infant vaccination programs had a significant impact on the gradual decline in infant mortality rates, or can the decline be better explained by another factor entirely?
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+
+# Import the dataset, skipping the title line
+mortality_data <- read_csv("NCHS_-_Childhood_Mortality_Rates.csv", skip = 1)
+
+# Clean and convert the "Death Rate" column:
+# - Remove commas
+# - Convert to numeric
+mortality_data <- mortality_data %>%
+  mutate(`Death Rate` = as.numeric(gsub(",", "", `Death Rate`)))
+
+# Plot with a continuous y-axis
+
+ggplot(mortality_data, aes(x = Year, y = `Death Rate`)) +
+geom_line(color = "#0072B2", size = 1.2) +
+theme_minimal(base_size = 10) +
+scale_y_continuous(labels = scales::comma) +
+labs(
+title = "Childhood Mortality Rates in Children Age 0-4 Years in the U.S. (1900–2018)",
+x = "Year",
+y = "Death Rate (per 100,000)"
+)
+```
 
 # STUDY QUESTION & HYPOTHESIS
 
@@ -34,7 +61,7 @@ A scatterplot showing data from years 1974-2024 will have two variables: mortali
 ## Procedure
 
 
-## First Analysis: Homework 10
+## First Analysis: Comparison of Infant Mortality Trends
 
 ```{r message=FALSE, warning=FALSE}
 # Load necessary packages
@@ -59,15 +86,40 @@ ggplot(data_long, aes(x = Year, y = MortalityRate, color = Condition)) +
   geom_point(size = 3, alpha = 0.7) +
   geom_smooth(method = "lm", se = FALSE, linewidth = 1.2) +
   labs(
-    title = "Global Infant Mortality Rates Over Time",
+    title = "Comparison of Infant Mortality Trends (With vs. Without Vaccines)",
     x = "Year",
     y = "Infant Mortality Rate (per 1,000 births)",
     color = "Condition"
   ) +
-  scale_color_manual(values = c("Vaccinated Mortality Rate" = "purple", "Unvaccinated Mortality Rate" = "green"))
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "top")
 ```
 
-## Second Analysis:
+## Second Analysis: Generalized Linear Model
+
+```{r message=FALSE, warning=FALSE}
+# Load required packages
+library(tidyverse)
+library(broom)
+
+# Import data
+data <- read_csv("Global infant mortality rate with and without vaccines(Sheet1).csv")
+
+# Reshape data to long format
+data_long <- data %>%
+  pivot_longer(
+    cols = c(`Vaccinated Mortality Rate`, `Unvaccinated Mortality Rate`),
+    names_to = "Condition",
+    values_to = "MortalityRate"
+  )
+
+# Fit linear model with interaction term
+model <- lm(MortalityRate ~ Year * Condition, data = data_long)
+
+# Show model summary
+summary(model)
+
+```
 
 # DISCUSSION
 
